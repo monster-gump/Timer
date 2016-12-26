@@ -1,4 +1,8 @@
 body {
-  background-color: black;
-  color: white;
+  background-color: black !important;
+  color: white !important;
+}
+
+#display {
+  font-size: 10rem;
 }

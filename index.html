@@ -5,20 +5,21 @@
   <meta charset="utf-8">
   <title>Timer</title>
   <link rel="stylesheet" type="text/css" href="timer.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 </head>
 
 <body>
-  <h1>
+  <h1 class="text-center">
     my JS timer
   </h1>
 
-  <div class="timer">
+  <div class="timer text-center">
     <div id="display">
-
+      00:00:00:00
     </div>
-    <button type="button" name="start" onclick="start()">start</button>
-    <button type="button" name="pause" onclick="pause()">pause</button>
-    <button type="button" name="stop" onclick="stop()">stop</button>
+    <button class="btn-lg btn-primary" type="button" name="start" onclick="start()">start</button>
+    <button class="btn-lg btn-primary" type="button" name="pause" onclick="pause()">pause</button>
+    <button class="btn-lg btn-primary" type="button" name="stop" onclick="stop()">stop</button>
   </div>
 </body>
 
