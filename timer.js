@@ -1,26 +1,36 @@
 "use strict";
 
-var startTime, endTime, timeLength, timeSpan;
+var startTime, endTime, pauseTime, timeLength, timeSpan;
 var hour, minute, second, ms;
 var status;
+var isPaused = false, intervalTime = 0;
 
 var start = function() {
-  hour = 0;
-  minute = 0;
-  second = 0;
-  startTime = new Date;
-  status = setTimeout(beat, 1);
+  if (isPaused) {
+    intervalTime = (intervalTime + parseInt(new Date - pauseTime));
+    status = setTimeout(beat, 1);
+  }
+  else {
+    hour = 0;
+    minute = 0;
+    second = 0;
+    startTime = new Date;
+    status = setTimeout(beat, 1);
+  }
+
 }
 
 var stop = function() {
   clearTimeout(status);
   endTime = new Date;
-  timeLength = parseInt((endTime - startTime) / 1000);
-  alert(timeLength);
+  timeLength = (endTime - startTime - intervalTime) / 1000;
+  alert(timeLength + " seconds flys");
 }
 
 var pause = function() {
-
+  pauseTime = new Date;
+  isPaused = true;
+  clearTimeout(status);
 }
 
 var beat = function() {
@@ -31,7 +41,7 @@ var beat = function() {
 }
 
 var checkTime = function(ms) {
-  ms = ms - second * 1000 - minute * 60000 - hour * 3600000;
+  ms = ms - second * 1000 - minute * 60000 - hour * 3600000 - intervalTime;
   if (ms >= 1000) {
     second++;
     ms = 0;
@@ -51,7 +61,7 @@ var checkTime = function(ms) {
     hourt = 0;
   }
 
-  return add0(hour) + ":" + add0(minute) + ":" + add0(second) + ":" + parseInt(ms / 10);
+  return add0(hour) + ":" + add0(minute) + ":" + add0(second) + ":" + add0(parseInt(ms / 10));
 }
 
 var add0 = function(arg) {
