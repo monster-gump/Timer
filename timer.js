@@ -3,28 +3,39 @@
 var startTime, endTime, pauseTime, timeLength, timeSpan;
 var hour, minute, second, ms;
 var status;
-var isPaused = false, intervalTime = 0;
+var isStopped = true, isPaused = false, intervalTime = 0;
 
 var start = function() {
-  if (isPaused) {
-    intervalTime = (intervalTime + parseInt(new Date - pauseTime));
-    status = setTimeout(beat, 1);
-  }
-  else {
+  if (isStopped) {
     hour = 0;
     minute = 0;
     second = 0;
+    ms = 0;
+    intervalTime = 0;
+    isStopped = false;
+    isPaused = false;
     startTime = new Date;
+    status = setTimeout(beat, 1);
+  }
+  else if (isPaused) {
+    intervalTime = (intervalTime + parseInt(new Date - pauseTime));
     status = setTimeout(beat, 1);
   }
 
 }
 
 var stop = function() {
+  if (isStopped || isPaused) {
+    isStopped = true;
+    clearTimeout(status);
+    document.getElementById("display").innerHTML = "00:00:00:00";
+    return;
+  }
   clearTimeout(status);
   endTime = new Date;
   timeLength = (endTime - startTime - intervalTime) / 1000;
-  alert(timeLength + " seconds flys");
+  isStopped = true;
+  // alert(timeLength + " seconds flys");
 }
 
 var pause = function() {
