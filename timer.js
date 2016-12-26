@@ -9,7 +9,7 @@ var start = function() {
   minute = 0;
   second = 0;
   startTime = new Date;
-  status = setTimeout(beat, 1000);
+  status = setTimeout(beat, 1);
 }
 
 var stop = function() {
@@ -19,27 +19,39 @@ var stop = function() {
   alert(timeLength);
 }
 
-var beat = function() {
-  endTime = new Date;
-  timeSpan = parseInt((endTime - startTime) / 1000);
-  document.getElementById("display").innerHTML = checkTime(timeSpan);
-  status = setTimeout(beat, 1000);
+var pause = function() {
+
 }
 
-var checkTime = function(len) {
-  len = len - minute * 60;
-  if (len >= 60) {
-    minute++;
-    len = 0;
+var beat = function() {
+  endTime = new Date;
+  timeSpan = parseInt((endTime - startTime));
+  document.getElementById("display").innerHTML = checkTime(timeSpan);
+  status = setTimeout(beat, 1);
+}
+
+var checkTime = function(ms) {
+  ms = ms - second * 1000 - minute * 60000 - hour * 3600000;
+  if (ms >= 1000) {
+    second++;
+    ms = 0;
   }
 
-  minute = minute - hour * 60;
+  if (second >= 60) {
+    minute++;
+    second = 0;
+  }
+
   if (minute >= 60) {
     hour++;
     minute = 0;
   }
 
-  return add0(hour) + ":" + add0(minute) + ":" + add0(len);
+  if (hour >= 24) {
+    hourt = 0;
+  }
+
+  return add0(hour) + ":" + add0(minute) + ":" + add0(second) + ":" + parseInt(ms / 10);
 }
 
 var add0 = function(arg) {
