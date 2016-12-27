@@ -4,7 +4,7 @@ var startTime, endTime, pauseTime, timeLength, timeSpan;
 var hour, minute, second, ms;
 var status;
 var isStopped = true, isPaused = false, intervalTime = 0;
-var countDownTime;
+var countDownMinute, countDownTime;
 
 var init = function() {
   hour = 0;
@@ -90,10 +90,10 @@ var add0 = function(arg) {
 
 var countDown = function() {
   init();
-  countDownTime = parseInt(document.getElementById("count-down-time").value);
+  countDownMinute = parseInt(document.getElementById("count-down-time").value);
   document.getElementById("count-down-time").value = "";
-  minute = countDownTime;
   startTime = new Date;
+  countDownMinute *= 60000;
   status = setTimeout(beatCountDown, 10);
 }
 
@@ -104,7 +104,16 @@ var beatCountDown = function() {
   status = setTimeout(beatCountDown, 10);
 }
 
-var checkCountDownTime = function(ms) {
+var checkCountDownTime = function(timeSpan) {
+  countDownTime = countDownMinute - timeSpan;
+  if (countDownTime <= 0 ) {
+    clearTimeout(status);
+    return "00:00:00:00";
+  }
+  minute = parseInt(countDownTime / 60000);
+  second = parseInt(countDownTime % 60000);
+  ms = parseInt(second % 1000);
+  second = parseInt(second / 1000);
 
   return add0(hour) + ":" + add0(minute) + ":" + add0(second) + ":" + add0(parseInt(ms / 10));
 }
