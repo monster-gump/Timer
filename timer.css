@@ -1,10 +1,21 @@
 body {
   background-color: black !important;
   color: white !important;
+  height: 100% !important;
+}
+
+html {
+  height: 100% !important;
 }
 
 #display {
-  font-size: 10rem;
+  font-size: 12vw;
+  padding: 10vh;
+}
+
+.timer-header {
+  font-size: 8vw;
+  padding-top: 10vh;
 }
 
 .count-down {
@@ -18,5 +29,11 @@ body {
 
 #count-down-btn {
   margin-left: -4px;
-  margin-top: -5px;
+  margin-top: -3.4px;
+}
+
+.info {
+  position: fixed;
+  top: 30px;
+  right: 30px;
 }

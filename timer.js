@@ -92,6 +92,10 @@ var countDown = function() {
   init();
   countDownMinute = parseInt(document.getElementById("count-down-time").value);
   document.getElementById("count-down-time").value = "";
+  if (isNaN(countDownMinute) || countDownMinute < 0) {
+    alert("please enter a positive number as minute");
+    return;
+  }
   startTime = new Date;
   countDownMinute *= 60000;
   status = setTimeout(beatCountDown, 10);
@@ -116,4 +120,31 @@ var checkCountDownTime = function(timeSpan) {
   second = parseInt(second / 1000);
 
   return add0(hour) + ":" + add0(minute) + ":" + add0(second) + ":" + add0(parseInt(ms / 10));
+}
+
+var toggleFullScreen = function() {
+  if (!document.fullscreenElement &&    // alternative standard method
+      !document.mozFullScreenElement && !document.webkitFullscreenElement && !document.msFullscreenElement ) {  // current working methods
+    if (document.documentElement.requestFullscreen) {
+      document.documentElement.requestFullscreen();
+    } else if (document.documentElement.msRequestFullscreen) {
+      document.documentElement.msRequestFullscreen();
+    } else if (document.documentElement.mozRequestFullScreen) {
+      document.documentElement.mozRequestFullScreen();
+    } else if (document.documentElement.webkitRequestFullscreen) {
+      document.documentElement.webkitRequestFullscreen(Element.ALLOW_KEYBOARD_INPUT);
+    }
+    document.getElementById("full-screen").innerHTML = "Exit Full Screen";
+  } else {
+    if (document.exitFullscreen) {
+      document.exitFullscreen();
+    } else if (document.msExitFullscreen) {
+      document.msExitFullscreen();
+    } else if (document.mozCancelFullScreen) {
+      document.mozCancelFullScreen();
+    } else if (document.webkitExitFullscreen) {
+      document.webkitExitFullscreen();
+    }
+    document.getElementById("full-screen").innerHTML = "Full Screen";
+  }
 }
