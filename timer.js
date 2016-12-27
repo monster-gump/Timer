@@ -4,24 +4,29 @@ var startTime, endTime, pauseTime, timeLength, timeSpan;
 var hour, minute, second, ms;
 var status;
 var isStopped = true, isPaused = false, intervalTime = 0;
+var countDownTime;
+
+var init = function() {
+  hour = 0;
+  minute = 0;
+  second = 0;
+  ms = 0;
+  intervalTime = 0;
+  isStopped = false;
+  isPaused = false;
+}
 
 var start = function() {
   if (isStopped) {
-    hour = 0;
-    minute = 0;
-    second = 0;
-    ms = 0;
-    intervalTime = 0;
-    isStopped = false;
-    isPaused = false;
+    init();
     startTime = new Date;
-    status = setTimeout(beat, 1);
+    status = setTimeout(beat, 10);
   }
   else if (isPaused) {
     isPaused = false;
     isStopped = false;
     intervalTime = (intervalTime + parseInt(new Date - pauseTime));
-    status = setTimeout(beat, 1);
+    status = setTimeout(beat, 10);
   }
 }
 
@@ -36,7 +41,7 @@ var stop = function() {
   endTime = new Date;
   timeLength = (endTime - startTime - intervalTime) / 1000;
   isStopped = true;
-  // alert(timeLength + " seconds flys");
+  console.log(timeLength + "seconds passed");
 }
 
 var pause = function() {
@@ -52,7 +57,7 @@ var beat = function() {
   endTime = new Date;
   timeSpan = parseInt((endTime - startTime)  - intervalTime);
   document.getElementById("display").innerHTML = checkTime(timeSpan);
-  status = setTimeout(beat, 1);
+  status = setTimeout(beat, 10);
 }
 
 var checkTime = function(ms) {
@@ -81,4 +86,25 @@ var checkTime = function(ms) {
 
 var add0 = function(arg) {
   return arg >= 10 ? arg : "0" + arg;
+}
+
+var countDown = function() {
+  init();
+  countDownTime = parseInt(document.getElementById("count-down-time").value);
+  document.getElementById("count-down-time").value = "";
+  minute = countDownTime;
+  startTime = new Date;
+  status = setTimeout(beatCountDown, 10);
+}
+
+var beatCountDown = function() {
+  endTime = new Date;
+  timeSpan = parseInt(endTime - startTime);
+  document.getElementById("display").innerHTML = checkCountDownTime(timeSpan);
+  status = setTimeout(beatCountDown, 10);
+}
+
+var checkCountDownTime = function(ms) {
+
+  return add0(hour) + ":" + add0(minute) + ":" + add0(second) + ":" + add0(parseInt(ms / 10));
 }
