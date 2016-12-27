@@ -18,10 +18,11 @@ var start = function() {
     status = setTimeout(beat, 1);
   }
   else if (isPaused) {
+    isPaused = false;
+    isStopped = false;
     intervalTime = (intervalTime + parseInt(new Date - pauseTime));
     status = setTimeout(beat, 1);
   }
-
 }
 
 var stop = function() {
@@ -39,6 +40,9 @@ var stop = function() {
 }
 
 var pause = function() {
+  if (isPaused) {
+    return;
+  }
   pauseTime = new Date;
   isPaused = true;
   clearTimeout(status);
@@ -46,13 +50,13 @@ var pause = function() {
 
 var beat = function() {
   endTime = new Date;
-  timeSpan = parseInt((endTime - startTime));
+  timeSpan = parseInt((endTime - startTime)  - intervalTime);
   document.getElementById("display").innerHTML = checkTime(timeSpan);
   status = setTimeout(beat, 1);
 }
 
 var checkTime = function(ms) {
-  ms = ms - second * 1000 - minute * 60000 - hour * 3600000 - intervalTime;
+  ms = ms - second * 1000 - minute * 60000 - hour * 3600000;
   if (ms >= 1000) {
     second++;
     ms = 0;
