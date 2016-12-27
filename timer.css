@@ -6,3 +6,17 @@ body {
 #display {
   font-size: 10rem;
 }
+
+.count-down {
+  display: inline !important;
+  float: none !important;
+}
+
+.input-group, .form-control {
+  width: 100px !important;
+}
+
+#count-down-btn {
+  margin-left: -4px;
+  margin-top: -5px;
+}
