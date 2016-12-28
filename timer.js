@@ -55,13 +55,20 @@ var pause = function() {
 
 var beat = function() {
   endTime = new Date;
+  // startTime = new Date("December 28, 2016 11:20:00"); // for test Tue Dec 28 2016 11:20:00 GMT-0800 (PST))
   timeSpan = parseInt((endTime - startTime)  - intervalTime);
   document.getElementById("display").innerHTML = checkTime(timeSpan);
   status = setTimeout(beat, 10);
 }
 
 var checkTime = function(ms) {
-  ms = ms - second * 1000 - minute * 60000 - hour * 3600000;
+  hour = parseInt(ms / 3600000);
+  ms = ms % 3600000;
+  minute = parseInt(ms / 60000);
+  ms = ms % 60000;
+  second = parseInt(ms / 1000);
+  ms = ms % 1000;
+
   if (ms >= 1000) {
     second++;
     ms = 0;
@@ -78,7 +85,7 @@ var checkTime = function(ms) {
   }
 
   if (hour >= 24) {
-    hourt = 0;
+    hour = 0;
   }
 
   return add0(hour) + ":" + add0(minute) + ":" + add0(second) + ":" + add0(parseInt(ms / 10));
