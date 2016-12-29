@@ -14,7 +14,6 @@ var init = function() {
   intervalTime = 0;
   isStopped = false;
   isPaused = false;
-  clearTimeout(status);
 }
 
 var start = function() {
