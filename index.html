@@ -11,7 +11,18 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 </head>
 
-<body>
+<body id="body" style="color:black">
+  <canvas id="canvas" width="1200" height="800"></canvas>
+  <script src="http://cdn.bootcss.com/trianglify/0.4.0/trianglify.min.js"></script>
+  <script type="text/javascript">
+    var pattern = Trianglify({
+      width: window.innerWidth,
+      height: window.innerHeight,
+      cell_size: 100
+    });
+    pattern.canvas(document.getElementById('canvas'));
+  </script>
+
   <div class="text-center timer-header">
     Timer &nbsp;&nbsp;
     <button class="btn btn-lg btn-primary" type="button" name="full" onclick="toggleFullScreen()" id="full-screen">Full Screen</button>

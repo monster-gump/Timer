@@ -141,6 +141,7 @@ var toggleFullScreen = function() {
     } else if (document.documentElement.webkitRequestFullscreen) {
       document.documentElement.webkitRequestFullscreen(Element.ALLOW_KEYBOARD_INPUT);
     }
+    document.getElementById("body").getAttributeNode("style").value="color:white";
     document.getElementById("full-screen").innerHTML = "Exit Full Screen";
   } else {
     if (document.exitFullscreen) {
@@ -152,6 +153,7 @@ var toggleFullScreen = function() {
     } else if (document.webkitExitFullscreen) {
       document.webkitExitFullscreen();
     }
+    document.getElementById("body").getAttributeNode("style").value="color:black";
     document.getElementById("full-screen").innerHTML = "Full Screen";
   }
 }
