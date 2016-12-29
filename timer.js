@@ -14,19 +14,20 @@ var init = function() {
   intervalTime = 0;
   isStopped = false;
   isPaused = false;
+  clearTimeout(status);
 }
 
 var start = function() {
   if (isStopped) {
     init();
     startTime = new Date;
-    status = setTimeout(beat, 10);
+    status = setTimeout(beat, 23);
   }
   else if (isPaused) {
     isPaused = false;
     isStopped = false;
     intervalTime = (intervalTime + parseInt(new Date - pauseTime));
-    status = setTimeout(beat, 10);
+    status = setTimeout(beat, 23);
   }
 }
 
@@ -58,7 +59,7 @@ var beat = function() {
   // startTime = new Date("December 28, 2016 11:20:00"); // for test Tue Dec 28 2016 11:20:00 GMT-0800 (PST))
   timeSpan = parseInt((endTime - startTime)  - intervalTime);
   document.getElementById("display").innerHTML = checkTime(timeSpan);
-  status = setTimeout(beat, 10);
+  status = setTimeout(beat, 23);
 }
 
 var checkTime = function(ms) {
@@ -105,14 +106,14 @@ var countDown = function() {
   }
   startTime = new Date;
   countDownMinute *= 60000;
-  status = setTimeout(beatCountDown, 10);
+  status = setTimeout(beatCountDown, 23);
 }
 
 var beatCountDown = function() {
   endTime = new Date;
   timeSpan = parseInt(endTime - startTime);
   document.getElementById("display").innerHTML = checkCountDownTime(timeSpan);
-  status = setTimeout(beatCountDown, 10);
+  status = setTimeout(beatCountDown, 23);
 }
 
 var checkCountDownTime = function(timeSpan) {
